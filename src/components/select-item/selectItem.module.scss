@@ -1,0 +1,64 @@
+.main {
+  width: 510px;
+  &__icon {
+    display: flex;
+    justify-content: space-between;
+    
+  }
+  &__double {
+    display: flex;
+    button:not(:last-child){
+      margin-right:10px;
+    }
+  }
+  &__button {
+    height: 32px;
+    width: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 22px;
+    border: 1px solid transparent;
+  }
+  &__selecting{
+      display: flex;
+      justify-content: space-between;
+      margin:16px 0 8px 0;
+  }
+  &__name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:43%;
+    height: 32px;
+    background: #83bcc3;
+    
+    padding: 0 10px;
+    span {
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 14px;
+      color: #ffffff;
+    }
+    div{
+      color:white;
+    }
+  }
+}
+
+.blue {
+  background: #cce6e8;
+}
+
+.darkBlue {
+  background: #83BCC3;
+}
+
+.grey {
+  background: #dcdcdc;
+}
+
+

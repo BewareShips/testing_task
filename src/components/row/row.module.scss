@@ -1,0 +1,35 @@
+.row{
+  width: 510px;
+  min-height: 38px;
+  background: #CCE6E8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  overflow: visible;
+  &__active{
+    background: #CCE6E8;
+  }
+  &__usual{
+    background: #C4C4C4;
+  }
+  &__icon{
+    margin-top: 5px;
+    font-size: 24px;
+    color: white;
+  }
+  &__square{
+    margin-left:7px;
+  }
+  &__eye{
+    float: right;
+    margin-right:7px;
+  }
+  span{
+    font-size:12px;
+    line-height: 14px;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+  }
+}
+
