@@ -3,29 +3,35 @@ const UPDATE_POST_TAG = "UPDATE_POST_TAG";
 const UPDATE_POST_TEXT = "UPDATE_POST_TEXT";
 const SET_STATUS = "SET_STATUS";
 const SET_CATEGORY = "SET_CATEGORY";
+const UPDATE_ACTIVE_TEXT = "UPDATE_ACTIVE_TEXT";
+const UPDATE_ACTIVE_TAG = "UPDATE_ACTIVE_TAG";
+const CANCEL_CHANGING = "CANCEL_CHANGING";
+
 
 let initialState = {
   postData: [
     {
       heading: "Элемент #1",
       description: "Описание Элемента #1",
-      id: 1,
+      id: 0,
       active: true,
     },
     {
       heading: "Элемент #2",
       description: "Описание Элемента #2",
-      id: 2,
+      id: 1,
       active: false,
     },
     {
       heading: "Элемент #3",
       description: "Описание Элемента #3",
-      id: 3,
+      id: 2,
       active: false,
     },
   ],
-  activeItem: 1,
+  activeItem: 0,
+  activeItemTag: "Элемент #1",
+  activeItemText: "Описание Элемента #1",
   visible: "true",
 };
 
@@ -42,7 +48,13 @@ const postdataReducer = (state = initialState, action) => {
       return { ...state, postData: [...state.postData, newPost] };
     }
     case SET_CATEGORY:{
-      return {...state,activeItem:action.payload}
+      return {...state,activeItemTag: action.heading,activeItemText: action.description,activeItem:action.id}
+    }
+    case UPDATE_ACTIVE_TAG:{
+      return {...state,activeItemTag: action.payload}
+    }
+    case UPDATE_ACTIVE_TEXT:{
+      return {...state,activeItemText: action.payload}
     }
     case UPDATE_POST_TEXT: {
       return { ...state, postData: state.postData.map(el=>{
@@ -52,6 +64,15 @@ const postdataReducer = (state = initialState, action) => {
         return el
       })};
     }
+    case CANCEL_CHANGING: 
+    return{...state,
+      activeItemTag : state.postData.filter(el=>el.id === action.payload).heading
+      // state.postData.map(el=>{
+      //   if(el.id === action.payload){
+      //     return  el.heading
+      //   }})
+    }
+    console.log(state)
     case SET_STATUS: {
       return { ...state, visible: action.payload };
     }
