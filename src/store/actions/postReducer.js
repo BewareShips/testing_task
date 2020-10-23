@@ -3,6 +3,10 @@ export const addPostActionCreator = () => ({
   type: 'ADD_POST',
 });
 
+export const delPostActionCreator = () => {
+  return{type: 'DEL_POST',}
+};
+
 //First time setting to activeItem
 export const setCategory = (heading,description,id) =>({
   type:'SET_CATEGORY',
@@ -22,19 +26,57 @@ export const setActiveText = (payload) => ({
 });
 
 // Setting finally data from activeItem
-export const setData = (tag,body,id) => ({
+export const setData = (tag,body,id,isVisible) => ({
   type: 'UPDATE_POST_TEXT',
   tag,
   body,
-  id
+  id,
+  isVisible
 });
 
-export const cancelChanging = (payload) => ({
+export const cancelChanging = () => ({
   type: 'CANCEL_CHANGING',
+ 
+})
+
+export const setNone = () =>({
+  type: 'NOT_CHOSE_ROW'
+})
+
+export const setCheck = (id,payload) => ({
+  type: 'SET_CHECK',
+  id,
+  payload,
+});
+
+export const setActiveVisible = (payload) => ({
+  type: 'ACTIVE__ISVISIBLE',
   payload
 })
 
-// export const setStatus = (payload) => ({
-//   type: 'SET_STATUS',
-//   payload,
-// });
+export const setMainCheck = (payload) => ({
+  type: 'SET_MAIN_CHECK',
+  payload
+})
+
+export const setVisible = (id,payload) => ({
+  type: 'SET_VISIBLE',
+  id,
+  payload
+});
+
+export const setAllVisible = (payload) =>({
+  type: 'SET_ALL_VISIBLE',
+  payload
+})
+
+export const setAllNotVisible = (payload) =>({
+  type: 'SET_ALL_NOT_VISIBLE',
+  payload
+})
+
+export const setMainEyeCheck = (payload) => ({
+  type: 'SET_MAIN_EYE_CHECK',
+  payload
+})
+

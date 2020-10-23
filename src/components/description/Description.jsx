@@ -1,58 +1,47 @@
 import React from "react";
 import s from "./description.module.scss";
-import { FaRegCheckSquare } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { setData,setActiveTag,setActiveText,cancelChanging} from "../../store/actions/postReducer"
-import { useState, useEffect } from "react";
+import { setData,setActiveTag,setActiveText,cancelChanging,setActiveVisible} from "../../store/actions/postReducer"
+import { useState} from "react";
 
-function Description({activeItemTag,activeItemText,activeItem}) {
+function Description({activeItemTag,activeItemText,activeItem,isVisible}) {
   const  dispatch = useDispatch()
-  const [tag, setTag] = useState(activeItemTag)
-  const [text, setText] = useState(activeItemText)
-  
-  // const onTagChange = (e) =>{
-  //   setTag(e.target.value))
-  // } 
-
-  // debugger;
-  // useEffect(() => {
-  //   setText(active.description)
-  // }, []);
-  // debugger;
+  const [visibleActiveItem, setVisibleActiveItem] = useState(true);
 
   const onTagChange = (e) =>{
     dispatch(setActiveTag(e.target.value))
   } 
-
   const onTextChange = (e) =>{
     dispatch(setActiveText(e.target.value))
   } 
-
   const onSendData = () => {
-    dispatch(setData(activeItemTag,activeItemText,activeItem))
+    dispatch(setData(activeItemTag,activeItemText,activeItem,visibleActiveItem))
+  }
+  const onCancel = () =>{
+    typeof activeItem === 'number' && dispatch(cancelChanging())
   }
 
-  const onCancel = (activeItem) =>{
-    dispatch(cancelChanging(activeItem))
+  const onChangeVisible = () =>{
+    setVisibleActiveItem(!visibleActiveItem)
   }
-
+  const isDisabled =  activeItem === null
   return (
     <div className={s.desc}>
       <span className={s.desc__main}>Редактирование элемента</span>
-      <textarea className={`${s.desc__title} ${s.desc__text}`} onChange={onTagChange}
+      <textarea disabled = {isDisabled} className={`${s.desc__title} ${s.desc__text}`} onChange={onTagChange}
       value={activeItemTag}> 
       </textarea>
-      <textarea className={`${s.desc__specification} ${s.desc__text}`}  onChange={onTextChange} value={activeItemText}>
+      <textarea disabled = {isDisabled} className={`${s.desc__specification} ${s.desc__text}`}  onChange={onTextChange} value={activeItemText}>
       </textarea>
       <div className={s.desc__confirm}>
-        <div className={s.desc__icon}>
-          <FaRegCheckSquare />
+
+        <div >
+          <input type="checkbox" id="agree"  checked={visibleActiveItem} onChange={onChangeVisible}/><label htmlFor="agree"  className={s.desc__text} >Видимый</label>  
         </div>
-        <span className={s.desc__text}> Видимый</span>
       </div>
       <div className={s.desc__groups}>
-        <button className={s.desc__apply}><span className={s.desc__text} onClick={onSendData}>Применить</span></button>
-        <button className={s.desc__cancel}><span className={s.desc__text} onClick={onCancel}>Отменить</span></button>
+        <button className={s.desc__apply} onClick={onSendData} disabled = {isDisabled}><span className={s.desc__text} >Применить</span></button>
+        <button className={s.desc__cancel} onClick={onCancel} disabled={isDisabled}><span className={s.desc__text} >Отменить</span></button>
       </div>
     </div>
   );

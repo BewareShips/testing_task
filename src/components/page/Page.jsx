@@ -1,6 +1,5 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setCategory } from "../../store/actions/postReducer";
 import Description from "../description/Description";
 import Row from "../row/Row";
 import SelectItem from "../select-item/SelectItem";
@@ -8,45 +7,75 @@ import s from "./page.module.scss";
 
 function Page() {
   const dispatch = useDispatch();
-  const { items, activeItem, activeItemTag, activeItemText } = useSelector(({ postReducer }) => {
+  const { items, activeItem, activeItemTag, activeItemText,isVisible,mainCheck,mainEyeCheck,mainCheckVisibleItems} = useSelector(({ postReducer }) => {
+  
     return {
-      items: postReducer.postData,
+      items: postReducer.postData ,
       activeItem: postReducer.activeItem,
       activeItemTag: postReducer.activeItemTag,
       activeItemText: postReducer.activeItemText,
+      isVisible: postReducer.isVisible,
+      mainCheck: postReducer.mainCheck,
+      mainEyeCheck: postReducer.mainEyeCheck,
+      mainCheckVisibleItems: postReducer.mainCheckVisibleItems,
+ 
     };
   });
 
-  const act = items.filter((el) => el.active === true);
+  const showVisibleItems = items.filter((item => item.isVisible === true ))
+  const showNotVisibleItems = items.filter((item => item.isVisible === false ))
 
-  const onSelectedCategory = (heading,description,id) => {
-    dispatch(setCategory(heading,description,id));
-  };
+
+
+  let itemsElements =  items;
+    switch(mainCheckVisibleItems){
+      case 'ALL':{
+        itemsElements = items;
+        break;
+      }
+      case 'SHOW':{
+        itemsElements = showVisibleItems;
+        break;
+      }
+      case 'HIDE':{
+        itemsElements = showNotVisibleItems;
+        break;
+      }
+      default:{
+        itemsElements = items;
+      }
+    }
+  
+
+  const showItems = itemsElements.map((item) => (         
+    <Row
+      heading={item.heading}
+      description={item.description}
+      isChecked={item.isChecked}
+      isVisible={item.isVisible}
+      key={item.id}
+      id={item.id}
+    />
+  ))
+
+ 
   return (
     <div className={s.page}>
       <div className={s.page__main}>
         <div className={s.page__wrapper}>
           <div className={s.page__right}>
             <div className={s.inner}>
-              <SelectItem />
+              <SelectItem mainCheck={mainCheck} mainEyeCheck={mainEyeCheck}/>
             </div>
             <div className={s.page__rows}>
-              {items.map(({ heading, description, id }) => (
-                <Row
-                  onClick={() => onSelectedCategory(heading,description,id)}
-                  heading={heading}
-                  description={description}
-                  key={id}
-                  id={id}
-                />
-              ))}
+              {showItems}
             </div>
           </div>
           <div className={s.page__del}></div>
           <div className={s.inner}>
             <Description
               activeItemTag={activeItemTag} activeItemText={activeItemText}
-              activeItem={activeItem}
+              activeItem={activeItem} isVisible={isVisible}
             />
           </div>
         </div>

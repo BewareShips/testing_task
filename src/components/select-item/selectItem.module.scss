@@ -20,6 +20,20 @@
     color: white;
     font-size: 22px;
     border: 1px solid transparent;
+    cursor: pointer;
+  }
+  &__check{
+    width: 32px;
+    height: 32px;
+    background: #83BCC3;
+    padding-left: 5.5px;
+    input[type="checkbox"] + label:before{
+      top: -5px;
+    }
+    input[type="checkbox"]:checked + label:after{
+      top: 2px;
+      left: 4px;
+    }
   }
   &__selecting{
       display: flex;
