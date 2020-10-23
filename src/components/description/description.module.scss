@@ -1,3 +1,7 @@
+$lightBlue:#83bcc3;
+$backgroundTextarea:#cce6e8;
+$buttonCancel:#DCDCDC;
+
 .desc {
   &__main {
     font-family: Roboto;
@@ -10,8 +14,8 @@
   &__title {
     width: 100%;
     height: 32px;
-    background: #cce6e8;
-    border: 1px solid #83bcc3;
+    background: $backgroundTextarea;
+    border: 1px solid $lightBlue;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -33,8 +37,8 @@
   &__specification {
     width: 100%;
     height: 168px;
-    background: #cce6e8;
-    border: 1px solid #83bcc3;
+    background: $backgroundTextarea;
+    border: 1px solid$lightBlue;
     padding-top: 11px;
     padding-left: 11.5px;
     margin-bottom: 10px;
@@ -66,10 +70,36 @@
   }
 
   &__apply{
-    background-color: #CCE6E8;;
+    cursor: pointer;
+    background-color:$backgroundTextarea;
+  }
+  &__apply:hover{
+    transition: 0.3s;
+    background-color:darken($backgroundTextarea, 20%)
+  }
+  &__apply:active{
+    transition: 0.2s;
+    background-color:darken($backgroundTextarea, 40%)
   }
   &__cancel{
-    background-color: #DCDCDC;;
+    cursor: pointer;
+    background-color:$buttonCancel;
+  }
+  &__cancel:hover{
+    transition: 0.3s;
+    background-color:darken($buttonCancel, 20%)
+  }
+  &__cancel:active{
+    transition: 0.2s;
+    background-color:darken($buttonCancel, 40%)
+  }
+  &__disabledApply{
+    cursor: default;
+    background-color:$backgroundTextarea;
+  }
+  &__disabledCancel{
+    cursor: default;
+    background-color:$buttonCancel;
   }
 }
 
@@ -97,7 +127,7 @@ input[type="checkbox"] + label:before {
   position: absolute;
   top: -2px;
   left: 0;
-  border: 2px solid #83BCC3;
+  border: 2px solid $lightBlue;
   background: #fff;
   border-radius:3px;
   cursor: pointer;
@@ -108,13 +138,14 @@ input[type="checkbox"]:checked + label:after {
   display: block;
   width: 12px;
   height: 6px;
-  border-bottom: 2px solid #83BCC3;
-  border-left: 2px solid #83BCC3;
+  border-bottom: 2px solid $lightBlue;
+  border-left: 2px solid $lightBlue;
   transform: rotate(-45deg);
   position: absolute;
   top: 5px;
   left: 4px;
   animation: checked 180ms ease-in;
+  cursor: pointer;
 }
 
 @keyframes checked {
@@ -127,4 +158,10 @@ input[type="checkbox"]:checked + label:after {
   100% {
     transform: scale(1);
   }
+}
+
+button, 
+button:active, 
+button:focus {
+    outline: none;
 }

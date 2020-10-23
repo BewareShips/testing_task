@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import {addPostActionCreator,delPostActionCreator,setMainCheck,setMainEyeCheck,setAllVisible,setAllNotVisible} from "../../store/actions/postReducer";
 import { useState } from "react";
 
-function SelectItem({mainCheck,mainEyeCheck}) {
+function SelectItem({mainCheck,mainEyeCheck,ifMarkedElement}) {
   const dispatch = useDispatch();
   const addNewItem = () => dispatch(addPostActionCreator());
 
@@ -25,8 +25,12 @@ function SelectItem({mainCheck,mainEyeCheck}) {
   }
 
   const delItem = () => {
-    if (window.confirm("ВЫ потверждаете удаление?")) {
-      dispatch(delPostActionCreator());
+    if(ifMarkedElement > 0){
+      if (window.confirm("ВЫ потверждаете удаление?")) {
+        dispatch(delPostActionCreator());
+      }
+    }else{
+      window.confirm("ВЫ не выбрали элемент для удаления")
     }
   };
 

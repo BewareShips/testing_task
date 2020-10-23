@@ -1,31 +1,26 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import Description from "../description/Description";
 import Row from "../row/Row";
 import SelectItem from "../select-item/SelectItem";
 import s from "./page.module.scss";
 
 function Page() {
-  const dispatch = useDispatch();
-  const { items, activeItem, activeItemTag, activeItemText,isVisible,mainCheck,mainEyeCheck,mainCheckVisibleItems} = useSelector(({ postReducer }) => {
+  const { items, activeItem, activeItemTag, activeItemText,mainCheck,mainEyeCheck,mainCheckVisibleItems} = useSelector(({ postReducer }) => {
   
     return {
       items: postReducer.postData ,
       activeItem: postReducer.activeItem,
       activeItemTag: postReducer.activeItemTag,
       activeItemText: postReducer.activeItemText,
-      isVisible: postReducer.isVisible,
       mainCheck: postReducer.mainCheck,
       mainEyeCheck: postReducer.mainEyeCheck,
       mainCheckVisibleItems: postReducer.mainCheckVisibleItems,
- 
     };
   });
 
   const showVisibleItems = items.filter((item => item.isVisible === true ))
   const showNotVisibleItems = items.filter((item => item.isVisible === false ))
-
-
 
   let itemsElements =  items;
     switch(mainCheckVisibleItems){
@@ -45,27 +40,26 @@ function Page() {
         itemsElements = items;
       }
     }
-  
 
-  const showItems = itemsElements.map((item) => (         
+  const ifMarkedElement = itemsElements.filter(item=> item.isChecked === true).length
+
+  const showItems = itemsElements.map(({heading,description,isChecked,isVisible,id}) => (         
     <Row
-      heading={item.heading}
-      description={item.description}
-      isChecked={item.isChecked}
-      isVisible={item.isVisible}
-      key={item.id}
-      id={item.id}
+      heading={heading}
+      description={description}
+      isChecked={isChecked}
+      isVisible={isVisible}
+      key={id}
+      id={id}
     />
   ))
-
- 
   return (
     <div className={s.page}>
       <div className={s.page__main}>
         <div className={s.page__wrapper}>
           <div className={s.page__right}>
             <div className={s.inner}>
-              <SelectItem mainCheck={mainCheck} mainEyeCheck={mainEyeCheck}/>
+              <SelectItem mainCheck={mainCheck} mainEyeCheck={mainEyeCheck} ifMarkedElement={ifMarkedElement}/>
             </div>
             <div className={s.page__rows}>
               {showItems}
@@ -75,7 +69,7 @@ function Page() {
           <div className={s.inner}>
             <Description
               activeItemTag={activeItemTag} activeItemText={activeItemText}
-              activeItem={activeItem} isVisible={isVisible}
+              activeItem={activeItem} 
             />
           </div>
         </div>

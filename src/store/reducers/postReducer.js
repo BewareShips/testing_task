@@ -1,5 +1,4 @@
 const ADD_POST = "ADD_POST";
-const UPDATE_POST_TAG = "UPDATE_POST_TAG";
 const UPDATE_POST_TEXT = "UPDATE_POST_TEXT";
 const SET_STATUS = "SET_STATUS";
 const SET_CATEGORY = "SET_CATEGORY";
@@ -48,7 +47,6 @@ let initialState = {
   activeItem: 0,
   activeItemTag: "Элемент #1",
   activeItemText: "Описание Элемента #1",
-  isVisible: true,
   mainCheckVisibleItems: 'ALL'
 };
 
@@ -70,6 +68,17 @@ const postdataReducer = (state = initialState, action) => {
       const newItems = state.postData.filter(
         (item) => !item.isChecked
       );
+      if(state.activeItem !== null){
+        if(state.postData[state.activeItem].isChecked === true){
+          return {
+            ...state,
+            postData: newItems,
+            activeItem:null,
+            activeItemTag:'',
+            activeItemText:''
+          }
+        }
+      }
       return {
         ...state,
         postData: newItems,
@@ -92,11 +101,11 @@ const postdataReducer = (state = initialState, action) => {
     case UPDATE_POST_TEXT: {
       return {
         ...state,
-        postData: state.postData.map((el) => {
-          if (el.id === action.id) {
-            return { ...el, heading: action.tag, description: action.body,isVisible:action.isVisible };
+        postData: state.postData.map((item) => {
+          if (item.id === action.id) {
+            return { ...item, heading: action.tag, description: action.body,isVisible:action.isVisible };
           }
-          return el;
+          return item;
         }),
       };
     }
@@ -119,11 +128,11 @@ const postdataReducer = (state = initialState, action) => {
     case SET_CHECK: {
       return {
         ...state,
-        postData: state.postData.map((el) => {
-          if (el.id === action.id) {
-            return { ...el, isChecked: action.payload };
+        postData: state.postData.map((item) => {
+          if (item.id === action.id) {
+            return { ...item, isChecked: action.payload };
           }
-          return el;
+          return item;
         }),
       };
     }
@@ -134,8 +143,8 @@ const postdataReducer = (state = initialState, action) => {
       return {
         ...state,
         mainCheck: action.payload,
-        postData: state.postData.map((el) => {
-          return { ...el, isChecked: !state.mainCheck };
+        postData: state.postData.map((item) => {
+          return { ...item, isChecked: !state.mainCheck };
         }),
       };
     }
@@ -143,19 +152,19 @@ const postdataReducer = (state = initialState, action) => {
       return {
         ...state,
         mainEyeCheck: action.payload,
-        postData: state.postData.map((el) => {
-          return { ...el, isVisible: !state.mainEyeCheck };
+        postData: state.postData.map((item) => {
+          return { ...item, isVisible: !state.mainEyeCheck };
         }),
       };
     }
     case SET_VISIBLE: {
       return {
         ...state,
-        postData: state.postData.map((el) => {
-          if (el.id === action.id) {
-            return { ...el, isVisible: action.payload };
+        postData: state.postData.map((item) => {
+          if (item.id === action.id) {
+            return { ...item, isVisible: action.payload };
           }
-          return el;
+          return item;
         }),
       };
     }
