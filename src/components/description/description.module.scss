@@ -1,0 +1,167 @@
+$lightBlue:#83bcc3;
+$backgroundTextarea:#cce6e8;
+$buttonCancel:#DCDCDC;
+
+.desc {
+  &__main {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    color: #315b60;
+  }
+  &__title {
+    width: 100%;
+    height: 32px;
+    background: $backgroundTextarea;
+    border: 1px solid $lightBlue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-left: 11.5px;
+    padding-top: 8px;
+    resize: none;
+    outline: none;
+  }
+  &__text {
+    font-family: Roboto;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 14px;
+    color: #2b2b2b;
+    outline: none;
+  }
+  &__specification {
+    width: 100%;
+    height: 168px;
+    background: $backgroundTextarea;
+    border: 1px solid$lightBlue;
+    padding-top: 11px;
+    padding-left: 11.5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    resize: none;
+  }
+  &__confirm {
+    display: flex;
+    align-items: center;
+    margin-bottom: 17px;
+    span {
+      color: #315b60;
+    }
+  }
+  button{
+    width: 174px;
+    height: 32px;
+    
+    border: 1px solid transparent;
+  }
+
+  button:not(:last-child){
+    margin-right: 30px;
+  }
+
+  &__groups{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__apply{
+    cursor: pointer;
+    background-color:$backgroundTextarea;
+  }
+  &__apply:hover{
+    transition: 0.3s;
+    background-color:darken($backgroundTextarea, 20%)
+  }
+  &__apply:active{
+    transition: 0.2s;
+    background-color:darken($backgroundTextarea, 40%)
+  }
+  &__cancel{
+    cursor: pointer;
+    background-color:$buttonCancel;
+  }
+  &__cancel:hover{
+    transition: 0.3s;
+    background-color:darken($buttonCancel, 20%)
+  }
+  &__cancel:active{
+    transition: 0.2s;
+    background-color:darken($buttonCancel, 40%)
+  }
+  &__disabledApply{
+    cursor: default;
+    background-color:$backgroundTextarea;
+  }
+  &__disabledCancel{
+    cursor: default;
+    background-color:$buttonCancel;
+  }
+}
+
+
+
+input[type="checkbox"], input[type="radio"] {
+  display: none;
+}
+
+label {
+  padding-left: 28px;
+  padding-top:4px ;
+  display: inline-block;
+  position: relative;
+  margin: 10px 20px 10px 0;
+
+}
+
+
+input[type="checkbox"] + label:before {
+  content: '';
+  display: block;
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: -2px;
+  left: 0;
+  border: 2px solid $lightBlue;
+  background: #fff;
+  border-radius:3px;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked + label:after {
+  content: '';
+  display: block;
+  width: 12px;
+  height: 6px;
+  border-bottom: 2px solid $lightBlue;
+  border-left: 2px solid $lightBlue;
+  transform: rotate(-45deg);
+  position: absolute;
+  top: 5px;
+  left: 4px;
+  animation: checked 180ms ease-in;
+  cursor: pointer;
+}
+
+@keyframes checked {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+button, 
+button:active, 
+button:focus {
+    outline: none;
+}
